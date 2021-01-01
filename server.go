@@ -22,14 +22,15 @@ func main() {
     AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
 }))
 
-type Employee struct {
+type Product struct {
   Id     string `json:"id"`
-  Name   string `json:"employee_name"`
-  Salary string `json: "employee_salary"`
-  Age    string `json : "employee_age"`
+  Name   string `json:"name"`
+  Price string `json: "price"`
+  Description    string `json : "description"`
+  Quantity string `json: "quantity`
 }
-type Employees struct {
-  Employees []Employee `json:"employee"`
+type Products struct {
+  Products []Product `json:"product"`
 }
 
 
@@ -50,21 +51,22 @@ db, err := sql.Open("mysql", "root:matti2527@tcp(127.0.0.1:3306)/barber")
   // Routes
   e.GET("/", hello)
 
-e.GET("/employee/:id", func(c echo.Context) error {
+e.GET("/products/:id", func(c echo.Context) error {
 	requested_id := c.Param("id")
-	fmt.Println(requested_id)
+  fmt.Println(requested_id)
+  var id string
 	var name string
-	var id string
-	var salary string
-	var age string
+	var price string
+	var description string
+	var quantity string
  
-	err = db.QueryRow("SELECT id,employee_name, employee_age, employee_salary FROM employee WHERE id = ?", requested_id).Scan(&id, &name, &age, &salary)
+	err = db.QueryRow("SELECT id,name, price, description, quantity_available FROM products WHERE id = ?", requested_id).Scan(&id, &name, &price, &description, &quantity)
  
 	if err != nil {
 				fmt.Println(err)
 	}
  
-	response := Employee{Id: id, Name: name, Salary: salary, Age: age}
+	response := Product{Id: id, Name: name, Price: price, Description : description, Quantity: quantity}
 	return c.JSON(http.StatusOK, response)
 })
 

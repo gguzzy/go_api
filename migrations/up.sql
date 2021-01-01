@@ -1,6 +1,7 @@
-create table employee (
-	id int primary key,
-    employee_name varchar (60),
-    employee_age int,
-    employee_salary float
-);
+create table products(
+	id int primary key not null AUTO_INCREMENT,
+    name varchar(60) not null,
+    price float not null,
+    description varchar(200),
+    quantity_available int not null
+)
