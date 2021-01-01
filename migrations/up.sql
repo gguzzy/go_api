@@ -5,3 +5,17 @@ create table products(
     description varchar(200),
     quantity_available int not null
 )
+
+
+create table inventory (
+	storeId int,
+    productId int
+)
+
+
+create table shop (
+	id int primary key AUTO_INCREMENT,
+    name varchar(60),
+    address varchar(60),
+    time date
+)
