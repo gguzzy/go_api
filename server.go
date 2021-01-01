@@ -33,7 +33,7 @@ type Employees struct {
 }
 
 
-db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/dummy_db")
+db, err := sql.Open("mysql", "root:matti2527@tcp(127.0.0.1:3306)/barber")
 	if err != nil {
 				fmt.Println(err.Error())
 	} else {
@@ -58,7 +58,7 @@ e.GET("/employee/:id", func(c echo.Context) error {
 	var salary string
 	var age string
  
-	err = db.QueryRow("SELECT id,employee_name, employee_age, employee_salary FROM employee WHERE id = ?", requested_id).Scan(&id, &name, &salary, &age)
+	err = db.QueryRow("SELECT id,employee_name, employee_age, employee_salary FROM employee WHERE id = ?", requested_id).Scan(&id, &name, &age, &salary)
  
 	if err != nil {
 				fmt.Println(err)
